@@ -36,7 +36,7 @@ def music_board():
                 st.error(f"无法加载图片 {image_file}: {e}")
 
 
-def side_bar():
+def title():
     global ipt_id
     st.write("输入网易云歌曲分享链接URL中专辑ID")
     ipt_id = st.text_input("输入专辑ID", placeholder="example:21302")
@@ -48,6 +48,22 @@ def side_bar():
         album_url = f"https://music.163.com/album?id={ipt_id}" 
         download_album_info(album_url, ipt_id)
         
+def sidebar():
+    with st.sidebar:
+        st.title("专辑ID获取方式")
+        st.subheader("网页端")
+        img = Image.open(os.path.join('guide', 'g1.png'))
+        st.image(img, caption="网页端获取方式")
+        st.subheader("手机端")
+        img = Image.open(os.path.join('guide', 'g2.jpg'))
+        st.image(img, caption="手机端获取方式")
+        st.markdown('''
+                    - 复制到的文本内容：分享陈绮贞的专辑《Groupies吉他手》: http://music.163.com/album/21302/?userid=1904702393 (来自@网易云音乐)
+                    - 其中`21302`即为专辑ID
+                    ''')
+        st.write("可能有时候会有bug，大家见谅😀")
+        
+        
 st.set_page_config(page_title="MusicBoard", layout="wide")
 
 pg = st.navigation([
@@ -57,6 +73,8 @@ pg = st.navigation([
 ipt_id = None
 
 st.title("MusicBoard")
-side_bar()
+title()
+sidebar()
+
 
 pg.run()

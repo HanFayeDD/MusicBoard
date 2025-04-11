@@ -5,12 +5,12 @@ from fake_useragent import UserAgent
 from PIL import Image
 import io
 import streamlit as st
-ua = UserAgent()
+ua = UserAgent(platforms='pc')
 
 SEP = '_#'
 def download_album_info(album_url, album_id, save_path='image'):
     # 设置请求头模拟浏览器访问
-    h = ua.edge
+    h = ua.random
     headers = {
         "User-Agent":h
     }
@@ -21,8 +21,8 @@ def download_album_info(album_url, album_id, save_path='image'):
         response.raise_for_status()
         print(response.status_code)
         # # 解析HTML
-        with open(f"{album_id}.html", 'w', encoding='utf-8') as f:
-            f.write(response.text)
+        # with open(f"{album_id}.html", 'w', encoding='utf-8') as f:
+        #     f.write(response.text)
             
         tree = html.fromstring(response.text)
         
